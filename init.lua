@@ -21,25 +21,25 @@ require('lazy').setup({
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate'
-	},
-	{
-		'nvim-telescope/telescope.nvim',
-		tag = '0.1.5',
-		dependencies = {'nvim-lua/plenary.nvim'}
-	},
-	{
-		'neovim/nvim-lspconfig',
-		dependencies = {
-			{
-				'williamboman/mason.nvim',
-				config = true
-			},
-			'williamboman/mason-lspconfig.nvim'
-		},
-	},
-	{
-		'hrsh7th/nvim-cmp',
-		dependencies = {
+    },
+    {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.5',
+        dependencies = {'nvim-lua/plenary.nvim'}
+    },
+    {
+        'neovim/nvim-lspconfig',
+        dependencies = {
+            {
+                'williamboman/mason.nvim',
+                config = true
+            },
+            'williamboman/mason-lspconfig.nvim'
+        },
+    },
+    {
+        'hrsh7th/nvim-cmp',
+        dependencies = {
             {
                 'L3MON4D3/LuaSnip',
                 build = 'make install_jsregexp',
@@ -47,127 +47,126 @@ require('lazy').setup({
                     'rafamadriz/friendly-snippets',
                 }
             },
-			'saadparwaiz1/cmp_luasnip',
-			'hrsh7th/cmp-nvim-lsp',
-			'hrsh7th/cmp-path',
-		}
-
-	},
-	{
-		'rose-pine/neovim',
-		name = 'rose-pine',
-		config = function()
-			vim.cmd.colorscheme('rose-pine')
-		end,
-	},
-	{
-		'numToStr/Comment.nvim',
-		lazy = false,
-	},
-	{
-		'windwp/nvim-autopairs',
-		event = 'InsertEnter',
-	},
+            'saadparwaiz1/cmp_luasnip',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-path',
+        }
+    },
+    {
+        'rose-pine/neovim',
+        name = 'rose-pine',
+        config = function()
+            vim.cmd.colorscheme('rose-pine')
+        end,
+    },
+    {
+        'numToStr/Comment.nvim',
+        lazy = false,
+    },
+    {
+        'windwp/nvim-autopairs',
+        event = 'InsertEnter',
+    },
 })
 
 -- LSP servers configs
 local servers = {
     clangd = {},
-	lua_ls = {
-		Lua = {
-			workspace = {checkThirdParty = false},
-			telemetry = {enable = false},
-			diagnostics = {globals = {'vim'}},
-		}
-	},
-	jedi_language_server = {},
-	rust_analyzer = {},
+    lua_ls = {
+        Lua = {
+            workspace = {checkThirdParty = false},
+            telemetry = {enable = false},
+            diagnostics = {globals = {'vim'}},
+        }
+    },
+    jedi_language_server = {},
+    rust_analyzer = {},
 }
 
 -- Plugin configs
 local cmp = require('cmp')
 local configs = {
-	['nvim-treesitter.configs'] = {
-		ensure_installed = {'c', 'lua', 'python', 'rust', 'vim', 'vimdoc'},
-		highlight = {
-			enable = true,
-		},
-	},
-	['telescope'] = {},
-	['mason'] = {},
-	['mason-lspconfig'] = {
-		ensure_installed = vim.tbl_keys(servers),
-	},
-	['cmp'] = {
-		snippet = {
-			expand = function(args)
-				require('luasnip').lsp_expand(args.body)
-			end
-		},
-		mapping = cmp.mapping.preset.insert({
-			['<Tab>'] = cmp.mapping.select_next_item(),
-			['<S-Tab>'] = cmp.mapping.select_prev_item(),
-			['<CR>'] = cmp.mapping.confirm({
-				behavior = cmp.ConfirmBehavior.Replace,
-				select = true,
-			}),
-			['<C-Space>'] = cmp.mapping.complete(),
-			['<C-b>'] = cmp.mapping.scroll_docs(-4),
-			['<C-f>'] = cmp.mapping.scroll_docs(4),
-		}),
-		sources = cmp.config.sources({
-			{name = 'nvim_lsp'},
-			{name = 'luasnip'},
-			{name = 'path'},
-		}),
-	},
-	['Comment'] = {
-		toggler = {
-			line = '<Leader>cl',
-			block = '<Leader>cb',
-		},
-		opleader = {
-			line = '<Leader>cl',
-			block = '<Leader>cb',
-		},
-		extra = {
-			above = '<Leader>cO',
-			below = '<Leader>co',
-			eol = '<Leader>cA',
-		},
-	},
-	['nvim-autopairs'] = {},
+    ['nvim-treesitter.configs'] = {
+        ensure_installed = {'c', 'lua', 'python', 'rust', 'vim', 'vimdoc'},
+        highlight = {
+            enable = true,
+        },
+    },
+    ['telescope'] = {},
+    ['mason'] = {},
+    ['mason-lspconfig'] = {
+        ensure_installed = vim.tbl_keys(servers),
+    },
+    ['cmp'] = {
+        snippet = {
+            expand = function(args)
+                require('luasnip').lsp_expand(args.body)
+            end
+        },
+        mapping = cmp.mapping.preset.insert({
+            ['<Tab>'] = cmp.mapping.select_next_item(),
+            ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+            ['<CR>'] = cmp.mapping.confirm({
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+            }),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        }),
+        sources = cmp.config.sources({
+            {name = 'nvim_lsp'},
+            {name = 'luasnip'},
+            {name = 'path'},
+        }),
+    },
+    ['Comment'] = {
+        toggler = {
+            line = '<Leader>cl',
+            block = '<Leader>cb',
+        },
+        opleader = {
+            line = '<Leader>cl',
+            block = '<Leader>cb',
+        },
+        extra = {
+            above = '<Leader>cO',
+            below = '<Leader>co',
+            eol = '<Leader>cA',
+        },
+    },
+    ['nvim-autopairs'] = {},
 }
 for plugin, config in pairs(configs) do
-	require(plugin).setup(config)
+    require(plugin).setup(config)
 end
 require('luasnip.loaders.from_snipmate').lazy_load()
 require('luasnip').config.setup()
 cmp.event:on(
-	'confirm_done',
-	require('nvim-autopairs.completion.cmp').on_confirm_done()
+    'confirm_done',
+    require('nvim-autopairs.completion.cmp').on_confirm_done()
 )
 
 -- neovim/nvim-lspconfig and williamboman/mason-lspconfig.nvim configs and LSP related keymaps
 local on_attach = function(_, buffer)
-	local keymaps = {
-		{'n', '<leader>rn', vim.lsp.buf.rename, {buffer = buffer, desc = 'LSP: rename symbol'}},
-		{'n', '<leader>gd', require('telescope.builtin').lsp_definitions, {buffer = buffer, desc = 'LSP: go to definition'}},
-	}
-	for _, keymap in pairs(keymaps) do
-		-- https://neovim.io/doc/user/lua.html
-		vim.keymap.set(unpack(keymap))
-	end
+    local keymaps = {
+        {'n', '<leader>rn', vim.lsp.buf.rename, {buffer = buffer, desc = 'LSP: rename symbol'}},
+        {'n', '<leader>gd', require('telescope.builtin').lsp_definitions, {buffer = buffer, desc = 'LSP: go to definition'}},
+    }
+    for _, keymap in pairs(keymaps) do
+        -- https://neovim.io/doc/user/lua.html
+        vim.keymap.set(unpack(keymap))
+    end
 end
 require('mason-lspconfig').setup_handlers({
-	function(server)
-		require('lspconfig')[server].setup({
-			capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-			on_attach = on_attach,
-			settings = servers[server],
-			filetypes = (servers[server] or {}).filetypes
-		})
-	end
+    function(server)
+        require('lspconfig')[server].setup({
+            capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+            on_attach = on_attach,
+            settings = servers[server],
+            filetypes = (servers[server] or {}).filetypes
+        })
+    end
 })
 
 -- Keymaps
@@ -183,8 +182,8 @@ local keymaps = {
     {'v', 'K', ":m '<-2<CR>gv=gv", {desc = 'Move selected lines up'}},
 }
 for _, keymap in pairs(keymaps) do
-	-- https://neovim.io/doc/user/lua.html
-	vim.keymap.set(unpack(keymap))
+    -- https://neovim.io/doc/user/lua.html
+    vim.keymap.set(unpack(keymap))
 end
 
 -- Options
@@ -219,5 +218,5 @@ local options = {
     wrap = false,
 }
 for option, value in pairs(options) do
-	vim.o[option] = value
+    vim.o[option] = value
 end
