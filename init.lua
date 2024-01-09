@@ -170,6 +170,11 @@ require('mason-lspconfig').setup_handlers({
         })
     end
 })
+local signs = {Error = '󰅚', Warn = '󰀪', Hint = '󰌶', Info = ''}
+for type, icon in pairs(signs) do
+    local hl = 'DiagnosticSign' .. type
+    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+end
 
 -- Keymaps
 local keymaps = {
@@ -207,7 +212,7 @@ local options = {
     relativenumber = true,
     ruler = true,
     scrolloff = 4,
-    signcolumn = 'yes',
+    signcolumn = 'yes:2',
     shiftwidth = 4,
     smartcase = true,
     smartindent = true,
