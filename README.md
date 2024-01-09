@@ -12,6 +12,6 @@
 - ```sudo apt install python3-venv```
 # Instructions
 - Install neovim from source (see [instructions](https://github.com/neovim/neovim/blob/master/BUILD.md))
-- ```cd``` to ```~/.config/nvim```
-- ```git clone https://github.com/Cavalleri/nvim-config```
+- ```cd``` to ```~/.config```
+- ```git clone https://github.com/Cavalleri/nvim```
 - Run neovim
