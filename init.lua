@@ -172,13 +172,13 @@ require('mason-lspconfig').setup_handlers({
 
 -- Keymaps
 local keymaps = {
-	-- nvim-telescope/telescope.nvim keymaps
-	{'n', '<leader>ff', require('telescope.builtin').find_files, {desc = 'Find files'}},
-	{'n', '<leader>lg', require('telescope.builtin').live_grep, {desc = 'Live grep string'}},
-	{'n', '<leader>lb', require('telescope.builtin').buffers, {desc = 'List open buffers'}},
-	{'n', '<leader>fh', require('telescope.builtin').help_tags, {desc = 'Find help tag'}},
-	{'n', '<leader>fk', require('telescope.builtin').keymaps, {desc = 'Find keymaps'}},
-	-- Custom keymaps
+    -- nvim-telescope/telescope.nvim keymaps
+    {'n', '<leader>ff', require('telescope.builtin').find_files, {desc = 'Find files'}},
+    {'n', '<leader>lg', require('telescope.builtin').live_grep, {desc = 'Live grep string'}},
+    {'n', '<leader>lb', require('telescope.builtin').buffers, {desc = 'List open buffers'}},
+    {'n', '<leader>fh', require('telescope.builtin').help_tags, {desc = 'Find help tag'}},
+    {'n', '<leader>fk', require('telescope.builtin').keymaps, {desc = 'Find keymaps'}},
+    -- Custom keymaps
     {'v', 'J', ":m '>+1<CR>gv=gv", {desc = 'Move selected lines down'}},
     {'v', 'K', ":m '<-2<CR>gv=gv", {desc = 'Move selected lines up'}},
 }
@@ -190,32 +190,32 @@ end
 -- Options
 local options = {
     autoindent = true,
-	breakident = true,
-	completeopt = 'menuone,noselect',
+    breakident = true,
+    completeopt = 'menuone,noselect',
     cursorline = true,
     -- TODO: modify highlight groups for this option to work with rose-pine
     cursorlineopt = 'number,line',
     equalalways = true,
-	expandtab = true,
+    expandtab = true,
     hidden = false,
-	hlsearch = false,
+    hlsearch = false,
     incsearch = true,
-	ignorecase = true,
+    ignorecase = true,
     linebreak = true,
-	number = true,
-	relativenumber = true,
+    number = true,
+    relativenumber = true,
     ruler = true,
     scrolloff = 4,
-	signcolumn = 'yes',
-	shiftwidth = 4,
-	smartcase = true,
-	smartindent = true,
-	softtabstop = 4,
+    signcolumn = 'yes',
+    shiftwidth = 4,
+    smartcase = true,
+    smartindent = true,
+    softtabstop = 4,
     splitright = true,
     splitbelow = true,
-	tabstop = 4,
-	termguicolors = true,
-	undofile = true,
+    tabstop = 4,
+    termguicolors = true,
+    undofile = true,
     wrap = false,
 }
 for option, value in pairs(options) do
