@@ -67,6 +67,7 @@ require('lazy').setup({
         'windwp/nvim-autopairs',
         event = 'InsertEnter',
     },
+    'lewis6991/gitsigns.nvim',
 })
 
 -- LSP servers configs
@@ -136,6 +137,7 @@ local configs = {
         },
     },
     ['nvim-autopairs'] = {},
+    ['gitsigns'] = {},
 }
 for plugin, config in pairs(configs) do
     require(plugin).setup(config)
