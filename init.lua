@@ -147,16 +147,21 @@ cmp.event:on(
     require('nvim-autopairs.completion.cmp').on_confirm_done()
 )
 
+-- Helper function to set keymaps
+local function set_keymaps(keymaps)
+    for _, keymap in pairs(keymaps) do
+        -- https://neovim.io/doc/user/lua.html
+        vim.keymap.set(unpack(keymap))
+    end
+end
+
 -- neovim/nvim-lspconfig and williamboman/mason-lspconfig.nvim configs and LSP related keymaps
 local on_attach = function(_, buffer)
     local keymaps = {
         {'n', '<leader>rn', vim.lsp.buf.rename, {buffer = buffer, desc = 'LSP: rename symbol'}},
         {'n', '<leader>gd', require('telescope.builtin').lsp_definitions, {buffer = buffer, desc = 'LSP: go to definition'}},
     }
-    for _, keymap in pairs(keymaps) do
-        -- https://neovim.io/doc/user/lua.html
-        vim.keymap.set(unpack(keymap))
-    end
+    set_keymaps(keymaps)
 end
 require('mason-lspconfig').setup_handlers({
     function(server)
@@ -186,10 +191,7 @@ local keymaps = {
     {'v', 'J', ":m '>+1<CR>gv=gv", {desc = 'Move selected lines down'}},
     {'v', 'K', ":m '<-2<CR>gv=gv", {desc = 'Move selected lines up'}},
 }
-for _, keymap in pairs(keymaps) do
-    -- https://neovim.io/doc/user/lua.html
-    vim.keymap.set(unpack(keymap))
-end
+set_keymaps(keymaps)
 
 -- Options
 local options = {
