@@ -217,6 +217,7 @@ local options = {
     softtabstop = 4,
     splitright = true,
     splitbelow = true,
+    statusline = '%<%F %h%m%r%=%(%l/%L, %c%)',
     tabstop = 4,
     termguicolors = true,
     undofile = true,
