@@ -146,7 +146,7 @@ local configs = {
     },
     ['nvim-autopairs'] = {},
     ['toggleterm'] = {
-        open_mapping = [[<Leader>t]],
+        open_mapping = [[<Leader>tt]],
     },
 }
 for plugin, config in pairs(configs) do
@@ -185,11 +185,13 @@ require('mason-lspconfig').setup_handlers({
         })
     end
 })
-local signs = {Error = '󰅚', Warn = '󰀪', Hint = '󰌶', Info = ''}
-for type, icon in pairs(signs) do
-    local hl = 'DiagnosticSign' .. type
-    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
-end
+-- TODO: Symbols are too small. Read online that it's because it's using a monospace font.
+--       Check if it's possible to fix that or if it's better to change font
+-- local signs = {Error = '', Warn = '󰀪', Hint = '󰌶', Info = ''}
+-- for type, icon in pairs(signs) do
+--     local hl = 'DiagnosticSign' .. type
+--     vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+-- end
 
 -- Keymaps
 local keymaps = {
@@ -221,6 +223,7 @@ local options = {
     ignorecase = true,
     linebreak = true,
     number = true,
+    mouse = '',
     relativenumber = true,
     ruler = true,
     scrolloff = 4,
