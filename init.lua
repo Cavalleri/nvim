@@ -67,6 +67,15 @@ require('lazy').setup({
         'windwp/nvim-autopairs',
         event = 'InsertEnter',
     },
+    {
+        'akinsho/toggleterm.nvim',
+        event = 'ColorScheme',
+        config = function()
+            require('toggleterm').setup({
+                highlights = require('rose-pine.plugins.toggleterm'),
+            })
+        end,
+    }
 })
 
 -- LSP servers configs
@@ -136,6 +145,9 @@ local configs = {
         },
     },
     ['nvim-autopairs'] = {},
+    ['toggleterm'] = {
+        open_mapping = [[<Leader>t]],
+    },
 }
 for plugin, config in pairs(configs) do
     require(plugin).setup(config)
@@ -203,7 +215,7 @@ local options = {
     cursorlineopt = 'number,line',
     equalalways = true,
     expandtab = true,
-    hidden = false,
+    hidden = true, -- Required by akinsho/toggleterm
     hlsearch = false,
     incsearch = true,
     ignorecase = true,
