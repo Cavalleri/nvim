@@ -185,13 +185,12 @@ require('mason-lspconfig').setup_handlers({
         })
     end
 })
--- TODO: Symbols are too small. Read online that it's because it's using a monospace font.
---       Check if it's possible to fix that or if it's better to change font
--- local signs = {Error = '', Warn = '󰀪', Hint = '󰌶', Info = ''}
--- for type, icon in pairs(signs) do
---     local hl = 'DiagnosticSign' .. type
---     vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
--- end
+-- NOTE: Monospace fonts might make symbols very small
+local signs = {Error = '', Warn = '󰀪', Hint = '󰌶', Info = ''}
+for type, icon in pairs(signs) do
+    local hl = 'DiagnosticSign' .. type
+    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+end
 
 -- Keymaps
 local keymaps = {
