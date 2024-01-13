@@ -216,9 +216,7 @@ local options = {
     -- cursorlineopt = 'number,line',
     equalalways = true,
     expandtab = true,
-    -- akinsho/toggleterm requires hidden = true to prevent terminal closing
-    -- when quitting the terminal window, but I prefer it set to false
-    hidden = false,
+    hidden = true, -- Required by akinsho/toggleterm
     hlsearch = false,
     incsearch = true,
     ignorecase = true,
