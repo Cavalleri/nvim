@@ -100,6 +100,9 @@ local configs = {
         highlight = {
             enable = true,
         },
+        indent = {
+            enable = false,
+        },
     },
     ['telescope'] = {},
     ['mason'] = {},
@@ -242,3 +245,8 @@ local options = {
 for option, value in pairs(options) do
     vim.o[option] = value
 end
+
+-- Configure python indentation
+vim.g.pyindent_open_paren = 'shiftwidth()'
+vim.g.pyindent_close_paren = 0
+vim.g.pyindent_continue = 'shiftwidth()'
