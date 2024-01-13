@@ -1,4 +1,4 @@
--- Leader must be set before plugins are required
+--Leader must be set before plugins are required
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -211,12 +211,14 @@ local options = {
     autoindent = true,
     breakident = true,
     completeopt = 'menuone,noselect',
-    cursorline = true,
     -- TODO: modify highlight groups for this option to work with rose-pine
-    cursorlineopt = 'number,line',
+    -- cursorline = true,
+    -- cursorlineopt = 'number,line',
     equalalways = true,
     expandtab = true,
-    hidden = true, -- Required by akinsho/toggleterm
+    -- akinsho/toggleterm requires hidden = true to prevent terminal closing
+    -- when quitting the terminal window, but I prefer it set to false
+    hidden = false,
     hlsearch = false,
     incsearch = true,
     ignorecase = true,
