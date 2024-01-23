@@ -1,9 +1,12 @@
---Leader must be set before plugins are required
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+-- TODO:
+-- Review treesitter's incremental selection keymaps
+-- Take a look at treesitter's textobjects keymaps
+-- Take a look at a python's formatter
+-- Change the autocompletion keymap that is using <CR> cause it's annoying
 
 -- Install folke/lazy.nvim
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
         'git',
@@ -14,6 +17,7 @@ if not vim.loop.fs_stat(lazypath) then
         lazypath,
     })
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 -- Plugin list 
@@ -75,7 +79,8 @@ require('lazy').setup({
                 highlights = require('rose-pine.plugins.toggleterm'),
             })
         end,
-    }
+    },
+    'Vimjas/vim-python-pep8-indent'
 })
 
 -- LSP servers configs
@@ -94,6 +99,7 @@ local servers = {
 
 -- Plugin configs
 local cmp = require('cmp')
+
 local configs = {
     ['nvim-treesitter.configs'] = {
         ensure_installed = {'c', 'lua', 'python', 'rust', 'vim', 'vimdoc'},
@@ -103,6 +109,15 @@ local configs = {
         indent = {
             enable = false,
         },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = '<C-Space>',
+                node_incremental = '<C-Space>',
+                scope_incremental = '<C-s>',
+                node_decremental = '<S-Space>'
+            }
+        }
     },
     ['telescope'] = {},
     ['mason'] = {},
@@ -152,11 +167,14 @@ local configs = {
         open_mapping = [[<Leader>tt]],
     },
 }
+
 for plugin, config in pairs(configs) do
     require(plugin).setup(config)
 end
+
 require('luasnip.loaders.from_snipmate').lazy_load()
 require('luasnip').config.setup()
+
 cmp.event:on(
     'confirm_done',
     require('nvim-autopairs.completion.cmp').on_confirm_done()
@@ -178,6 +196,7 @@ local on_attach = function(_, buffer)
     }
     set_keymaps(keymaps)
 end
+
 require('mason-lspconfig').setup_handlers({
     function(server)
         require('lspconfig')[server].setup({
@@ -188,8 +207,10 @@ require('mason-lspconfig').setup_handlers({
         })
     end
 })
+
 -- NOTE: Monospace fonts might make symbols very small
 local signs = {Error = '', Warn = '󰀪', Hint = '󰌶', Info = ''}
+
 for type, icon in pairs(signs) do
     local hl = 'DiagnosticSign' .. type
     vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
@@ -206,7 +227,11 @@ local keymaps = {
     -- Custom keymaps
     {'v', 'J', ":m '>+1<CR>gv=gv", {desc = 'Move selected lines down'}},
     {'v', 'K', ":m '<-2<CR>gv=gv", {desc = 'Move selected lines up'}},
+    {{'n', 'v'}, '<Space>', '<Nop>', {desc = 'Disables <Space> in normal and visual modes', silent = true}},
+    {'n', '<leader>nd', vim.diagnostic.goto_next, {desc = 'Go to the next diagnostic message'}},
+    {'n', '<leader>pd', vim.diagnostic.goto_prev, {desc = 'Go to the previous diagnostic message'}},
 }
+
 set_keymaps(keymaps)
 
 -- Options
@@ -242,11 +267,7 @@ local options = {
     undofile = true,
     wrap = false,
 }
+
 for option, value in pairs(options) do
     vim.o[option] = value
 end
-
--- Configure python indentation
-vim.g.pyindent_open_paren = 'shiftwidth()'
-vim.g.pyindent_close_paren = 0
-vim.g.pyindent_continue = 'shiftwidth()'
