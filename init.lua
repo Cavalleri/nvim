@@ -1,6 +1,4 @@
 -- TODO:
--- Review treesitter's incremental selection keymaps
--- Take a look at treesitter's textobjects keymaps
 -- Take a look at a python's formatter
 
 -- Install folke/lazy.nvim
@@ -23,6 +21,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
     {
         'nvim-treesitter/nvim-treesitter',
+        dependencies = {'nvim-treesitter/nvim-treesitter-textobjects'},
         build = ':TSUpdate'
     },
     {
@@ -101,20 +100,80 @@ local cmp = require('cmp')
 
 local configs = {
     ['nvim-treesitter.configs'] = {
-        ensure_installed = {'c', 'lua', 'python', 'rust', 'vim', 'vimdoc'},
+        ensure_installed = {'c', 'lua', 'python', 'query', 'rust', 'vim', 'vimdoc'},
         highlight = {
             enable = true,
         },
         indent = {
             enable = false,
         },
+        -- Treesitter's incremental selection keymaps
         incremental_selection = {
             enable = true,
             keymaps = {
-                init_selection = '<C-Space>',
-                node_incremental = '<C-Space>',
-                scope_incremental = '<C-s>',
-                node_decremental = '<S-Space>'
+                init_selection = '<Space>',
+                node_incremental = '<Space>',
+                node_decremental = '<BS>'
+            }
+        },
+        -- Treesitter's textobjects keymaps
+        textobjects = {
+            select = {
+                enable = true,
+                lookahead = true,
+                keymaps = {
+                    ['ik'] = {query = '@class.inner', desc = 'Select inner class'},
+                    ['ak'] = {query = '@class.outer', desc = 'Select class'},
+                    ['ic'] = {query = '@conditional.inner', desc = 'Select inner conditional'},
+                    ['ac'] = {query = '@conditional.outer', desc = 'Select conditional'},
+                    ['if'] = {query = '@function.inner', desc = 'Select inner function'},
+                    ['af'] = {query = '@function.outer', desc = 'Select function'},
+                    ['il'] = {query = '@loop.inner', desc = 'Select inner loop'},
+                    ['al'] = {query = '@loop.outer', desc = 'Select loop'},
+                    ['ia'] = {query = '@parameter.inner', desc = 'Select inner argument'},
+                    ['aa'] = {query = '@parameter.outer', desc = 'Select a argument'}
+                }
+            },
+            move = {
+                enable = true,
+                set_jumps = true,
+                goto_next_start = {
+                    ['<Leader>nk'] = {query = '@class.outer', desc = 'Jump to next class start'},
+                    ['<Leader>nc'] = {query = '@conditional.outer', desc = 'Jump to next conditional start'},
+                    ['<Leader>nf'] = {query = '@function.outer', desc = 'Jump to next function start'},
+                    ['<Leader>nl'] = {query = '@loop.outer', desc = 'Jump to next loop start'},
+                    ['<Leader>np'] = {query = '@parameter.outer', desc = 'Jump to next parameter start'}
+                },
+                goto_next_end = {
+                    ['<Leader>Nk'] = {query = '@class.outer', desc = 'Jump to next class end'},
+                    ['<Leader>Nc'] = {query = '@conditional.outer', desc = 'Jump to next conditional end'},
+                    ['<Leader>Nf'] = {query = '@function.outer', desc = 'Jump to next function end'},
+                    ['<Leader>Nl'] = {query = '@loop.outer', desc = 'Jump to next loop end'},
+                    ['<Leader>Np'] = {query = '@parameter.outer', desc = 'Jump to next parameter end'}
+                },
+                goto_previous_start = {
+                    ['<Leader>pk'] = {query = '@class.outer', desc = 'Jump to previous class start'},
+                    ['<Leader>pc'] = {query = '@conditional.outer', desc = 'Jump to previous conditional start'},
+                    ['<Leader>pf'] = {query = '@function.outer', desc = 'Jump to previous function start'},
+                    ['<Leader>pl'] = {query = '@loop.outer', desc = 'Jump to previous loop start'},
+                    ['<Leader>pp'] = {query = '@parameter.outer', desc = 'Jump to previous parameter start'}
+                },
+                goto_previous_end = {
+                    ['<Leader>Pk'] = {query = '@class.outer', desc = 'Jump to previous class end'},
+                    ['<Leader>Pc'] = {query = '@conditional.outer', desc = 'Jump to previous conditional end'},
+                    ['<Leader>Pf'] = {query = '@function.outer', desc = 'Jump to previous function end'},
+                    ['<Leader>Pl'] = {query = '@loop.outer', desc = 'Jump to previous loop end'},
+                    ['<Leader>Pp'] = {query = '@parameter.outer', desc = 'Jump to previous parameter end'}
+                }
+            },
+            swap = {
+                enable = true,
+                swap_next = {
+                    ['<Leader>sp'] = {query = '@parameter.inner', desc = 'Swap parameter with the next'}
+                },
+                swap_previous = {
+                    ['<Leader>Sp'] = {query = '@parameter.inner', desc = 'Swap parameter with the previous'}
+                }
             }
         }
     },
