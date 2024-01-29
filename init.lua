@@ -1,6 +1,3 @@
--- TODO:
--- Take a look at a python's formatter
-
 -- Install folke/lazy.nvim
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
@@ -78,7 +75,8 @@ require('lazy').setup({
             })
         end,
     },
-    'Vimjas/vim-python-pep8-indent'
+    'Vimjas/vim-python-pep8-indent',
+    'nvimtools/none-ls.nvim'
 })
 
 -- LSP servers configs
@@ -96,6 +94,7 @@ local servers = {
 }
 
 -- Plugin configs
+local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 local cmp = require('cmp')
 
 local configs = {
@@ -237,6 +236,21 @@ local configs = {
     ['toggleterm'] = {
         open_mapping = [[<Leader>tt]],
     },
+    ['null-ls'] = {
+        sources = {require('null-ls').builtins.formatting.black},
+        on_attach = function(client, bufnr)
+            if client.supports_method('textDocument/formatting') then
+                vim.api.nvim_clear_autocmds({group = augroup, buffer = bufnr})
+                vim.api.nvim_create_autocmd('BufWritePre', {
+                    group = augroup,
+                    buffer = bufnr,
+                    callback = function()
+                        vim.lsp.buf.format({async = false})
+                    end
+                })
+            end
+        end
+    }
 }
 
 for plugin, config in pairs(configs) do
