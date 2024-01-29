@@ -107,7 +107,7 @@ local configs = {
         indent = {
             enable = false,
         },
-        -- Treesitter's incremental selection keymaps
+        -- nvim/nvim-treesiter incremental selection keymaps
         incremental_selection = {
             enable = true,
             keymaps = {
@@ -116,7 +116,7 @@ local configs = {
                 node_decremental = '<BS>'
             }
         },
-        -- Treesitter's textobjects keymaps
+        -- nvim/nvim-treesitter-textobjects keymaps
         textobjects = {
             select = {
                 enable = true,
@@ -288,6 +288,8 @@ for type, icon in pairs(signs) do
 end
 
 -- Keymaps
+local ts_textobjects = require('nvim-treesitter.textobjects.repeatable_move')
+
 local keymaps = {
     -- nvim-telescope/telescope.nvim keymaps
     {'n', '<leader>ff', require('telescope.builtin').find_files, {desc = 'Find files'}},
@@ -301,6 +303,13 @@ local keymaps = {
     {{'n', 'v'}, '<Space>', '<Nop>', {desc = 'Disables <Space> in normal and visual modes', silent = true}},
     {'n', '<leader>nd', vim.diagnostic.goto_next, {desc = 'Go to the next diagnostic message'}},
     {'n', '<leader>pd', vim.diagnostic.goto_prev, {desc = 'Go to the previous diagnostic message'}},
+    -- nvim-treesitter/nvim-treesitter-textobjects extra keymaps
+    {{'n', 'o', 'x'}, ';', ts_textobjects.repeat_last_move, {desc = 'Repeat last move'}},
+    {{'n', 'o', 'x'}, ',', ts_textobjects.repeat_last_move_opposite, {desc = 'Repeat last move in the opposite way'}},
+    {{'n', 'o', 'x'}, 'f', ts_textobjects.builtin_f, {desc = 'To [count]\'th occurrence of {char} to the right'}},
+    {{'n', 'o', 'x'}, 'F', ts_textobjects.builtin_F, {desc = 'To [count]\'th occurrence of {char} to the left'}},
+    {{'n', 'o', 'x'}, 't', ts_textobjects.builtin_t, {desc = 'Till [count]\'th occurrence of {char} to the right'}},
+    {{'n', 'o', 'x'}, 'T', ts_textobjects.builtin_T, {desc = 'Till [count]\'th occurrence of {char} to the left'}}
 }
 
 set_keymaps(keymaps)
