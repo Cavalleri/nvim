@@ -1,23 +1,16 @@
--- Helper function to set keymaps
-local function set_keymaps(keymaps)
-    for _, keymap in pairs(keymaps) do
-        -- https://neovim.io/doc/user/lua.html
-        vim.keymap.set(unpack(keymap))
-    end
-end
-
 local keymaps = {
     {'v', 'J', ":m '>+1<CR>gv=gv", {desc = 'Move selected lines down'}},
     {'v', 'K', ":m '<-2<CR>gv=gv", {desc = 'Move selected lines up'}},
---    {{'n', 'v'}, '<Space>', '<Nop>', {desc = 'Disables <Space> in normal and visual modes', silent = true}},
+    {{'n', 'v'}, '<Space>', '<Nop>', {desc = 'Disables <Space> in normal and visual modes', silent = true}},
     {'n', '<leader>nd', vim.diagnostic.goto_next, {desc = 'Go to the next diagnostic message'}},
     {'n', '<leader>pd', vim.diagnostic.goto_prev, {desc = 'Go to the previous diagnostic message'}},
-    -- nvim-treesitter/nvim-treesitter-textobjects extra keymaps
 }
 
-set_keymaps(keymaps)
+for _, keymap in pairs(keymaps) do
+    -- https://neovim.io/doc/user/lua.html
+    vim.keymap.set(unpack(keymap))
+end
 
--- Options
 local options = {
     autoindent = true,
     breakindent = true,
