@@ -5,5 +5,5 @@
 # Instructions
 - Install neovim from source (see [instructions](https://github.com/neovim/neovim/blob/master/BUILD.md))
 - ```cd``` to ```~/.config```
-- ```git clone https://github.com/Cavalleri/nvim```
+- Clone this repo
 - Run neovim
