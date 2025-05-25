@@ -16,12 +16,19 @@ if not vim.loop.fs_stat(mini_path) then
 end
 
 local mini_plugins = {
+	-- Text editing plugins
 	ai = {},
 	comment = {},
 	move = {},
 	operators = {},
 	pairs = {},
 	surround = {},
+	-- Appearance plugins
+	hues = {
+		background = '#002734',
+		foreground = '#c0c8cc',
+		saturation = 'high',
+	},
 }
 
 for plugin, config in pairs(mini_plugins) do
